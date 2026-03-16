@@ -494,6 +494,23 @@
     }, { threshold: 0.5 });
     counters.forEach(el => counterObserver.observe(el));
 
+    // Chat message animation
+    const chatBody = document.getElementById('chatBody');
+    if (chatBody) {
+        const chatObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const msgs = entry.target.querySelectorAll('.chat-msg');
+                    msgs.forEach((msg, i) => {
+                        setTimeout(() => msg.classList.add('visible'), i * 450);
+                    });
+                    chatObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+        chatObserver.observe(chatBody);
+    }
+
     // FRI ring animation
     const friScore = document.getElementById('friScore');
     if (friScore) {
