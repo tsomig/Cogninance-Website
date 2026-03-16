@@ -202,7 +202,7 @@
                         I understand the impulse. Research shows decisions made under stress tend to cost 2-3x more long-term. Let's look at your buffer together before deciding.
                     </div>
                     <div class="chat-msg bot">
-                        Your Financial Well-being score is 87. Your emergency buffer covers 4.2 months. You have room to manage this without touching savings. Want me to show you three options?
+                        Your Financial Well-being score is 100. Your emergency buffer covers 4.2 months. You have room to manage this without touching savings. Want me to show you three options?
                     </div>
                 </div>
                 <div class="chat-input-bar">
@@ -494,6 +494,23 @@
     }, { threshold: 0.5 });
     counters.forEach(el => counterObserver.observe(el));
 
+    // Chat message animation
+    const chatBody = document.getElementById('chatBody');
+    if (chatBody) {
+        const chatObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const msgs = entry.target.querySelectorAll('.chat-msg');
+                    msgs.forEach((msg, i) => {
+                        setTimeout(() => msg.classList.add('visible'), i * 450);
+                    });
+                    chatObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+        chatObserver.observe(chatBody);
+    }
+
     // FRI ring animation
     const friScore = document.getElementById('friScore');
     if (friScore) {
@@ -501,7 +518,7 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     let val = 0;
-                    const target = 87;
+                    const target = 100;
                     const timer = setInterval(() => {
                         val += 14;
                         if (val >= target) { val = target; clearInterval(timer); }

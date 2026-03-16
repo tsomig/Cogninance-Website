@@ -57,7 +57,7 @@
             entries.forEach(function (entry) {
                 if (entry.isIntersecting && !friAnimated) {
                     friAnimated = true;
-                    var target = 847;
+                    var target = 100;
                     var count = 0;
                     var increment = target / 120;
                     var counter = setInterval(function () {
